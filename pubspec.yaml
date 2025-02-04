@@ -1,0 +1,53 @@
+name: tm_app
+description: "A new Flutter project."
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# Version de l'application
+version: 1.0.0+1
+
+# Environnement SDK Dart
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  supabase_flutter: ^2.8.3
+  flutter_riverpod: ^2.4.10
+  flutter_screenutil: ^5.9.0
+  flutter_easyloading: ^3.0.5
+  url_launcher: ^6.2.5
+  syncfusion_flutter_pdfviewer: ^28.1.41
+  dio: ^5.4.1
+  path_provider: ^2.1.2
+  shared_preferences: ^2.2.2
+  postgrest: ^2.4.1
+  sign_in_with_apple: ^6.1.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3 # Ajout du package pour les icônes d'application
+
+
+  
+flutter:
+  uses-material-design: true
+
+  # Déclaration des assets
+  assets:
+    - assets/tm.webp
+
+# Configuration pour les icônes d'application
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/tm.webp" # Chemin vers ton icône
+  adaptive_icon_background: "#ffffff" # Couleur de fond pour Android (si besoin)
+  adaptive_icon_foreground: "assets/tm.webp" # Icône adaptative (optionnel)
