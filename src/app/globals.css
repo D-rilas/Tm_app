@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -87,4 +88,8 @@ body {
   }
 }
 
-
+/* Custom CSS for Mobile */
+.mobile-button-size {
+  padding: 0.75rem; /* Increased padding for better touch experience */
+  font-size: 1rem; /* Increased font size for better readability */
+}

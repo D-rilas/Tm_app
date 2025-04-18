@@ -91,7 +91,7 @@ export default function Home() {
         <Input
           type="text"
           placeholder="Search PDFs..."
-          className="mr-2"
+          className="mr-2 w-full md:w-auto"
           value={searchTerm}
           onChange={handleSearch}
         />
@@ -140,3 +140,4 @@ export default function Home() {
     </div>
   );
 }
+
