@@ -1,0 +1,24 @@
+
+name: pdffinder
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  syncfusion_flutter_pdfviewer: ^24.2.3
+  path_provider: ^2.0.0  # Example version, use the latest
+  http: ^0.13.0 # Example version, use the latest
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
