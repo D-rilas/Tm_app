@@ -1,13 +1,6 @@
 class PdfDocument {
-  final String id;
-  final String name;
-  final String url;
-  final List<String> keywords;
+  final String title;
+  final String filePath;
 
-  PdfDocument({
-    required this.id,
-    required this.name,
-    required this.url,
-    required this.keywords,
-  });
+  PdfDocument({required this.title, required this.filePath});
 }
