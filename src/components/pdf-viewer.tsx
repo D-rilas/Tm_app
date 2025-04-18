@@ -16,12 +16,12 @@ interface PDFViewerProps {
 export const PDFViewer: React.FC<PDFViewerProps> = ({pdfUrl}) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [zoom, setZoom] = useState(1.0);
+  const [zoom, setZoom] = useState(1.5);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setPageNumber(1);
-    setZoom(1.0);
+    setZoom(1.5);
   }, [pdfUrl]);
 
   function onDocumentLoadSuccess({numPages}: {numPages: number}) {
