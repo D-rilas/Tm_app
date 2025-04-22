@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tm_app/models/document.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tm_app/pages/view_doc.dart';
 
 class DocumentCard extends StatefulWidget {
   final technicals_manuals document;
@@ -49,105 +50,121 @@ class _DocumentCardState extends State<DocumentCard> {
     });
   }
 
+  void _viewDocument() {
+    // print(widget.document.file_url);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ViewDocumentPage(document: widget.document),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8.0),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Contenu principal (titre et mots-clés)
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.document.name,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+    return InkWell(
+      onTap: _viewDocument,
+      child: Card(
+        margin: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          // Replace IntrinsicHeight with SizedBox
+          height: 150, // Fixed height for the card
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Contenu principal (titre et mots-clés)
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.document.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : null,
+                          IconButton(
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : null,
+                            ),
+                            onPressed: _toggleFavorite,
                           ),
-                          onPressed: _toggleFavorite,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 4,
-                      children: widget.document.key_word.map((keyword) {
-                        return Chip(
-                          label: Text(
-                            keyword,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          padding: const EdgeInsets.all(4),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Aperçu PDF
-            Container(
-              width: 120,
-              decoration: BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: Colors.grey.shade300,
-                    width: 1,
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 4,
+                        children: widget.document.key_word.map((keyword) {
+                          return Chip(
+                            label: Text(
+                              keyword,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            padding: const EdgeInsets.all(4),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
+              // Aperçu PDF
+              Container(
+                width: 120,
+                decoration: BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: Colors.grey.shade300,
+                      width: 1,
+                    ),
+                  ),
                 ),
-                child: _hasError
-                    ? const Center(
-                        child: Icon(
-                          Icons.picture_as_pdf,
-                          size: 40,
-                          color: Colors.grey,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
+                  child: _hasError
+                      ? const Center(
+                          child: Icon(
+                            Icons.picture_as_pdf,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        )
+                      : SfPdfViewer.network(
+                          widget.document.file_url,
+                          controller: _pdfViewerController,
+                          pageSpacing: 0,
+                          initialZoomLevel: 0.5,
+                          enableDoubleTapZooming: false,
+                          interactionMode: PdfInteractionMode.pan,
+                          canShowScrollHead: false,
+                          canShowScrollStatus: false,
+                          canShowPaginationDialog: false,
+                          onDocumentLoadFailed:
+                              (PdfDocumentLoadFailedDetails details) {
+                            setState(() {
+                              _hasError = true;
+                            });
+                          },
                         ),
-                      )
-                    : SfPdfViewer.network(
-                        widget.document.file_url,
-                        controller: _pdfViewerController,
-                        pageSpacing: 0,
-                        initialZoomLevel: 0.5,
-                        enableDoubleTapZooming: false,
-                        interactionMode: PdfInteractionMode.pan,
-                        canShowScrollHead: false,
-                        canShowScrollStatus: false,
-                        canShowPaginationDialog: false,
-                        onDocumentLoadFailed:
-                            (PdfDocumentLoadFailedDetails details) {
-                          setState(() {
-                            _hasError = true;
-                          });
-                        },
-                      ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

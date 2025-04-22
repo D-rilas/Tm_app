@@ -1,6 +1,5 @@
 import 'package:tm_app/models/document.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DocumentService {
   static final supabase = Supabase.instance.client;
