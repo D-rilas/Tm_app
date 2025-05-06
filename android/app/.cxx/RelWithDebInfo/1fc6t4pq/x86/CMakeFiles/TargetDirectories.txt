@@ -1,0 +1,2 @@
+C:/Users/hp/projetsv/tm_app/android/app/.cxx/RelWithDebInfo/1fc6t4pq/x86/CMakeFiles/edit_cache.dir
+C:/Users/hp/projetsv/tm_app/android/app/.cxx/RelWithDebInfo/1fc6t4pq/x86/CMakeFiles/rebuild_cache.dir
